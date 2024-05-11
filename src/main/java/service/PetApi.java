@@ -4,7 +4,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import model.PetModel;
+import model.Pet;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class PetApi {
                 .build();
     }
 
-    public List<PetModel> getAll() {
+    public List<Pet> getAll() {
         return given()
                 .spec(getRequestSpec())
                 .when()
@@ -32,7 +32,7 @@ public class PetApi {
                 .extract()
                 .body()
                 .jsonPath()
-                .getList(".", PetModel.class);
+                .getList(".", Pet.class);
     }
 
     public ValidatableResponse getPetRawResponse(long id) {
@@ -44,27 +44,27 @@ public class PetApi {
                 .then();
     }
 
-    public PetModel getPet(long id) {
+    public Pet getPet(long id) {
         return getPetRawResponse(id)
                 .statusCode(200)
                 .extract()
-                .as(PetModel.class);
+                .as(Pet.class);
     }
 
-    public ValidatableResponse postPetRawResponse(PetModel petModel) {
+    public ValidatableResponse postPetRawResponse(Pet pet) {
         return given()
                 .spec(getRequestSpec())
                 .when()
-                .body(petModel)
+                .body(pet)
                 .post()
                 .then();
     }
 
-    public PetModel postPet(PetModel petModel) {
-        return postPetRawResponse(petModel)
+    public Pet postPet(Pet pet) {
+        return postPetRawResponse(pet)
                 .statusCode(201)
                 .extract()
-                .as(PetModel.class);
+                .as(Pet.class);
     }
 
     public void deletePet(long id) {

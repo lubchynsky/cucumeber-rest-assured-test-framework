@@ -1,25 +1,26 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Objects;
 
-
-public class PetModel {
-
-    private Long id;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Pet {
+    private long id;
     private String name;
-    private PetType type;
+    private String type;
     private int age;
 
-    public PetModel() {
+    public Pet() {
     }
 
-    public PetModel(String name, PetType type, int age) {
+    public Pet(String name, String type, int age) {
         this.name = name;
         this.type = type;
         this.age = age;
     }
 
-    public PetModel(Long id, String name, PetType type, int age) {
+    public Pet(Long id, String name, String type, int age) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -42,11 +43,11 @@ public class PetModel {
         this.name = name;
     }
 
-    public PetType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(PetType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -62,8 +63,8 @@ public class PetModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PetModel petModel = (PetModel) o;
-        return age == petModel.age && Objects.equals(id, petModel.id) && Objects.equals(name, petModel.name) && type == petModel.type;
+        Pet pet = (Pet) o;
+        return age == pet.age && Objects.equals(id, pet.id) && Objects.equals(name, pet.name) && type == pet.type;
     }
 
     @Override
